@@ -1,0 +1,14 @@
+{
+  "name": "com.zbajnek.unityfpscontroller",
+  "displayName": "Unity FPS Controller",
+  "description": "FPS Controller for Unity 3D",
+  "version": "0.1.0",
+  "author": {
+    "name": "Zbajnek",
+    "url": "https://github.com/Zbajnek"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "com.unity.inputsystem": "1.19.0"
+  }
+}
