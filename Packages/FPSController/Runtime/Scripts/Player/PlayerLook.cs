@@ -1,3 +1,4 @@
+using Headbob;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,6 +19,10 @@ namespace Scripts.Player
         [SerializeField, Range(0f, 0.1f)] private float lookSmoothTime = 0.05f;
         private Vector2 _mouseDelta, _currentMouseDelta, _currentMouseDeltaVelocity;
         private float _yaw, _pitch;
+
+        [SerializeField, Space] private bool useHeadbob;
+        [SerializeField] private HeadbobType headbobType = HeadbobType.Simple;
+        [SerializeReference] private BaseHeadbob headbob;
         
         public bool Disabled { get; set; }
         public static PlayerLook Instance { get; private set; }
@@ -38,6 +43,16 @@ namespace Scripts.Player
             _camera = Camera.main;
 
             InitializeInputs();
+        }
+
+        private void Start()
+        {
+            headbob.Initialize();
+        }
+
+        private void Update()
+        {
+            headbob.Update();
         }
 
         private void LateUpdate()

@@ -155,6 +155,20 @@ MonoBehaviour:
   sensitivity: {x: 2, y: 2}
   smoothedLook: 1
   lookSmoothTime: 0.05
+  useHeadbob: 1
+  headbobType: 0
+  headbob:
+    rid: 1139403584182157386
+  references:
+    version: 2
+    RefIds:
+    - rid: 1139403584182157386
+      type: {class: SimpleHeadbob, ns: Headbob, asm: com.zbajnek.unityfpscontroller}
+      data:
+        head: {fileID: 0}
+        amount: 0.05
+        frequency: 10
+        smooth: 30
 --- !u!114 &299183735
 MonoBehaviour:
   m_ObjectHideFlags: 0
