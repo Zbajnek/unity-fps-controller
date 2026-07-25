@@ -1,6 +1,6 @@
 using System;
 using Headbob;
-using Scripts.Player;
+using Player;
 using UnityEditor;
 using UnityEngine;
 

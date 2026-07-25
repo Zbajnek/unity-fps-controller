@@ -2,7 +2,7 @@ using Headbob;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Scripts.Player
+namespace Player
 {
     [DisallowMultipleComponent]
     public sealed class PlayerLook : MonoBehaviour
@@ -22,7 +22,7 @@ namespace Scripts.Player
 
         [SerializeField, Space] private bool useHeadbob;
         [SerializeField] private HeadbobType headbobType = HeadbobType.Simple;
-        [SerializeReference] private BaseHeadbob headbob;
+        [SerializeReference] public BaseHeadbob headbob;
         
         public bool Disabled { get; set; }
         public static PlayerLook Instance { get; private set; }
@@ -37,7 +37,7 @@ namespace Scripts.Player
                 Destroy(gameObject);
                 return;
             }
-
+            
             Instance = this;
             
             _camera = Camera.main;
@@ -47,11 +47,15 @@ namespace Scripts.Player
 
         private void Start()
         {
+            if (!useHeadbob) return;
+            
             headbob.Initialize();
         }
 
         private void Update()
         {
+            if (!useHeadbob) return;
+
             headbob.Update();
         }
 

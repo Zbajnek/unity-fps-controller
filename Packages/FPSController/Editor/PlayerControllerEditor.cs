@@ -1,4 +1,4 @@
-using Scripts.Player;
+using Player;
 using UnityEditor;
 
 namespace Editor

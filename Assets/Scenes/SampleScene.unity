@@ -158,11 +158,11 @@ MonoBehaviour:
   useHeadbob: 1
   headbobType: 0
   headbob:
-    rid: 1139403584182157386
+    rid: 1139403592728051783
   references:
     version: 2
     RefIds:
-    - rid: 1139403584182157386
+    - rid: 1139403592728051783
       type: {class: SimpleHeadbob, ns: Headbob, asm: com.zbajnek.unityfpscontroller}
       data:
         head: {fileID: 0}
@@ -635,7 +635,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5, y: 1, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

@@ -1,4 +1,5 @@
 using System;
+using Player;
 using UnityEngine;
 
 namespace Headbob
@@ -6,6 +7,7 @@ namespace Headbob
     [Serializable]
     public sealed class SimpleHeadbob : BaseHeadbob
     {
+        [Tooltip("Set this to the player's head transform.")]
         [SerializeField] private Transform head;
 
         [SerializeField, Space, Range(0.01f, 0.1f)] private float amount = 0.05f;
@@ -17,12 +19,24 @@ namespace Headbob
 
         public override void Initialize()
         {
+            if (!head)
+            {
+                Debug.LogWarning("No head set for headbob!");
+                return;
+            }
+            
             _startPos = head.localPosition;
         }
 
         public override void Update()
         {
-            StartHeadbob();
+            if (!head) return;
+            
+            if (PlayerController.Instance.IsMoving())
+            {
+                StartHeadbob();
+            }
+            
             ResetHeadbob();
         }
 

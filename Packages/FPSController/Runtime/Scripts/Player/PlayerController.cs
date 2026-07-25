@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Scripts.Player
+namespace Player
 {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(CharacterController))]
@@ -16,8 +16,8 @@ namespace Scripts.Player
         [SerializeField] private InputActionReference crouchReference;
         
         [Header("Movement Settings")]
-        [SerializeField] private float walkSpeed;
-        [SerializeField] private float sprintSpeed;
+        public float walkSpeed;
+        public float sprintSpeed;
         [SerializeField] private bool smoothedMovement;
         [SerializeField, Range(0f, 0.5f)] private float moveSmoothTime = 0.15f;
         [SerializeField, Range(0f, 0.5f)] private float moveSpeedSmoothTime = 0.2f;
@@ -28,8 +28,9 @@ namespace Scripts.Player
 
         private const float Gravity = 9.81f;
 
-        public float Velocity => new Vector3(_charController.velocity.x, 0f, _charController.velocity.z).magnitude;
+        public bool IsSprinting => _moveSpeed > walkSpeed && _moveSpeed <= sprintSpeed;
         
+        public float Velocity => new Vector3(_charController.velocity.x, 0f, _charController.velocity.z).sqrMagnitude;
         public bool Disabled { get; set; }
         public static PlayerController Instance { get; private set; }
         
@@ -125,5 +126,10 @@ namespace Scripts.Player
             crouchReference?.action.Disable();
         }
         private void OnDestroy() => Instance = null;
+
+        /// <summary>
+        /// Returns true if the player is moving.
+        /// </summary>
+        public bool IsMoving() => Velocity > 0.001f;
     }
 }
