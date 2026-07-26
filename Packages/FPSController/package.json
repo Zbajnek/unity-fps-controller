@@ -10,5 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "com.unity.inputsystem": "1.19.0"
-  }
+  },
+  "documentationUrl": "https://github.com/Zbajnek/unity-fps-controller/blob/master/README.md",
+  "licensesUrl": "https://github.com/Zbajnek/unity-fps-controller/blob/master/LICENSE"
 }

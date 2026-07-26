@@ -185,11 +185,14 @@ MonoBehaviour:
   sprintReference: {fileID: -7471211009204490832, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   jumpReference: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   crouchReference: {fileID: 7040659881675835329, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  crouchSpeed: 1
   walkSpeed: 2
   sprintSpeed: 5
   smoothedMovement: 1
   moveSmoothTime: 0.15
   moveSpeedSmoothTime: 0.2
+  crouchHeight: 0.5
+  crouchTransitionSpeed: 0.2
 --- !u!143 &299183736
 CharacterController:
   m_ObjectHideFlags: 0

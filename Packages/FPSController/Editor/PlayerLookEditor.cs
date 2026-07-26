@@ -1,4 +1,3 @@
-using System;
 using Headbob;
 using Player;
 using UnityEditor;
@@ -9,52 +8,63 @@ namespace Editor
     [CustomEditor(typeof(PlayerLook))]
     public sealed class PlayerLookEditor : UnityEditor.Editor
     {
-        private SerializedProperty _smoothedLook;
-        private SerializedProperty _lookSmoothTime;
-
-        private SerializedProperty _useHeadbob;
-        private SerializedProperty _headbobType;
-        private SerializedProperty _headbob;
-
-        private void OnEnable()
-        {
-            _smoothedLook = serializedObject.FindProperty("smoothedLook");
-            _lookSmoothTime = serializedObject.FindProperty("lookSmoothTime");
-            
-            _useHeadbob = serializedObject.FindProperty("useHeadbob");
-            _headbobType = serializedObject.FindProperty("headbobType");
-            _headbob = serializedObject.FindProperty("headbob");
-        }
-        
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
+        
+            var property = serializedObject.GetIterator();
+            property.NextVisible(true); // Skip m_Script
             
-            DrawPropertiesExcluding(serializedObject, "smoothedLook", "lookSmoothTime", "useHeadbob", "headbobType", "headbob");
-            
-            EditorGUILayout.PropertyField(_smoothedLook);
-
-            if (_smoothedLook.boolValue)
+            while (property.NextVisible(false))
             {
-                EditorGUILayout.PropertyField(_lookSmoothTime);
-            }
-            
-            EditorGUILayout.PropertyField(_useHeadbob);
-
-            if (_useHeadbob.boolValue)
-            {
-                EditorGUI.BeginChangeCheck();
-                EditorGUILayout.PropertyField(_headbobType);
-                
-                HeadbobType newType = (HeadbobType)_headbobType.enumValueIndex;
-                if (EditorGUI.EndChangeCheck() || _headbob.managedReferenceValue == null)
+                if (property.name == "smoothedLook")
                 {
-                    _headbob.managedReferenceValue = CreateHeadbobInstance(newType);
+                    EditorGUILayout.PropertyField(property);
+                    
+                    if (property.boolValue)
+                    {
+                        property.NextVisible(false); // lookSmoothTime
+                        EditorGUILayout.PropertyField(property);
+                    }
+                    else
+                    {
+                        property.NextVisible(false); // Skip lookSmoothTime
+                    }
                 }
-                
-                EditorGUILayout.PropertyField(_headbob, new GUIContent($"Headbob ({newType.ToString()})"), true);
+                else if (property.name == "useHeadbob")
+                {
+                    EditorGUILayout.PropertyField(property);
+                    
+                    if (property.boolValue)
+                    {
+                        property.NextVisible(false); // headbobType
+                        
+                        EditorGUI.BeginChangeCheck();
+                        EditorGUILayout.PropertyField(property);
+                        
+                        HeadbobType newType = (HeadbobType)property.enumValueIndex;
+                        
+                        property.NextVisible(false); // headbob
+                        
+                        if (EditorGUI.EndChangeCheck() || property.managedReferenceValue == null)
+                        {
+                            property.managedReferenceValue = CreateHeadbobInstance(newType);
+                        }
+                        
+                        EditorGUILayout.PropertyField(property, new GUIContent($"Headbob ({newType.ToString()})"), true);
+                    }
+                    else
+                    {
+                        property.NextVisible(false); // Skip headbobType
+                        property.NextVisible(false); // Skip headbob
+                    }
+                }
+                else
+                {
+                    EditorGUILayout.PropertyField(property, true);
+                }
             }
-            
+        
             serializedObject.ApplyModifiedProperties();
         }
 
