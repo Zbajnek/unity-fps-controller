@@ -21,7 +21,9 @@ namespace Player
         private float _yaw, _pitch;
 
         [SerializeField, Space] private bool useHeadbob;
+        #pragma warning disable CS0414
         [SerializeField] private HeadbobType headbobType = HeadbobType.Simple;
+        #pragma warning restore CS0414
         [SerializeReference] public BaseHeadbob headbob;
         
         public bool Disabled { get; set; }
